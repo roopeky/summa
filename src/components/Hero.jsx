@@ -15,9 +15,14 @@ const Hero = () => {
       </nav>
 
       <h1 className="head_text">
-        Summarize Articles with <br />{" "}
+        Summarize Articles with <br className="max-md:hidden" />{" "}
         <span className="red_gradient">OpenAI GPT-3.5</span>
       </h1>
+      <h2 className="desc">
+        Summa is a free tool that summarizes articles using OpenAI GPT-3.5
+        model. It is a great way to get the gist of an article without having to
+        read the whole thing.
+      </h2>
     </header>
   );
 };
