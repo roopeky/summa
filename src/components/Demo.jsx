@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { copy, link, loader, tick } from "../assets";
+import { useLazyGetSummaryQuery } from "../services/article";
 
 const Demo = () => {
   const [article, setArticle] = useState({
@@ -7,9 +8,18 @@ const Demo = () => {
     summary: "",
   });
 
-  const handleSubmit = async (e) => {};
+  const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
 
-  const handleChange = async (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { data } = await getSummary({ articleUrl: article.url });
+
+    if (data?.summary) {
+      const newArticle = { ...article, summary: data.summary };
+      setArticle(newArticle);
+      console.log(newArticle);
+    }
+  };
 
   return (
     <section className="mt-16 w-full max-w-xl">
@@ -26,7 +36,7 @@ const Demo = () => {
           />
           <input
             type="url"
-            placeholder="Enter a URL"
+            placeholder="Enter a article link"
             value={article.url}
             onChange={(e) => setArticle({ ...article, url: e.target.value })}
             required
@@ -36,7 +46,7 @@ const Demo = () => {
             type="submit"
             className="submit_btn peer-focus:border-gray-700 peer-focus:text-gray-700"
           >
-            Enter
+            <p>↵</p>
           </button>
         </form>
         {/*browse url history here*/}
