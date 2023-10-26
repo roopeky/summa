@@ -8,6 +8,8 @@ const Demo = () => {
     summary: "",
   });
 
+  const [copied, setCopied] = useState("");
+
   const [allArticles, setAllArticles] = useState([]);
 
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
@@ -36,9 +38,14 @@ const Demo = () => {
     }
   };
 
+  const handleCopy = (copyUrl) => {
+    setCopied(copyUrl);
+    navigator.clipboard.writeText(copyUrl);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
   return (
     <section className="mt-16 w-full max-w-xl">
-      {/*search here*/}
       <div className="flex flex-col w-full gap-2">
         <form
           className="relative flex justify-center items-center"
@@ -64,7 +71,6 @@ const Demo = () => {
             <p>↵</p>
           </button>
         </form>
-        {/*browse url history here*/}
         <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
           {allArticles.map((item, index) => (
             <div
@@ -72,9 +78,14 @@ const Demo = () => {
               onClick={() => setArticle(item)}
               className="link_card"
             >
-              <div className="copy_btn">
+              <div
+                className="copy_btn"
+                onClick={() => {
+                  handleCopy(item.url);
+                }}
+              >
                 <img
-                  src={copy}
+                  src={copied === item.url ? tick : copy}
                   alt="copy icon"
                   className="w-[40%] h-[40%] object-contain"
                 />
@@ -86,7 +97,6 @@ const Demo = () => {
           ))}
         </div>
       </div>
-      {/*display results here*/}
       <div className="my-10 max-w-full flex justify-center items-center">
         {isFetching ? (
           <img src={loader} alt="loader" className="w-20 h-20 object-contain" />
