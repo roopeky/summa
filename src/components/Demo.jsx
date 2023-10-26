@@ -14,7 +14,7 @@ const Demo = () => {
 
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
 
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("fi");
 
   useEffect(() => {
     const articlesFromLocalStorage = JSON.parse(
@@ -80,6 +80,7 @@ const Demo = () => {
             className="lang_input p-2.5"
             onChange={(e) => setLanguage(e.target.value)}
           >
+            <option value="fi">Suomi</option>
             <option value="en">English</option>
             <option disabled>────────────</option>
             <option value="ar">Arabic</option>
