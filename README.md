@@ -1,4 +1,7 @@
-# React + Vite
+# Summa
+Summa is a free tool that summarizes articles using OpenAI GPT-3.5 model. It is a great way to get the gist of an article without having to read the whole thing.
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
